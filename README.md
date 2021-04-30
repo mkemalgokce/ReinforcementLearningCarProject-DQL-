@@ -40,7 +40,7 @@
 
 * Arabada toplam 5 adet sensör var. Sol, sağ, ön, ön sağ, ön sol olmak üzere.
 * Her sensörün verisi vardır. Veriler 0 ile 1 arasında float tipindeki sayılardan oluşuyor. Eğer verilen renk değeri ile araba arasındaki uzaklık 1 ile ifade ediliyorsa, cisim arabadan max uzaklıktadır, fakat uzaklık 0 a eşitse cisimle araba iç içe pozisyondadır.
-* 
+
 ## Yapay Sinir Ağı
 
 - Kullandığım yapay sinir ağı 3 katmandan oluşuyor.
