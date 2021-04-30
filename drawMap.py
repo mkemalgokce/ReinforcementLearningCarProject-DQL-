@@ -1,3 +1,10 @@
+'''
+drawMap.py
+Mustafa Kemal GOKCE
+30.04.2021
+You can draw map with this python file. If you want draw road, you can use 'd' key.
+'s' key saves file , 'a' key draws finish line and 'c' key clears screen.
+'''
 import pygame 
 import numpy as np
 import os
@@ -23,7 +30,7 @@ if __name__ == '__main__':
                 print(event.key)
                 if event.key == 115: #S
                     print("Saving ...")
-                    if(os.path.isfile('Assets/road'+str(imgCount)+'.bmp')):
+                    if(os.path.isfile('Assets/road'+str(imgCount)+'.bmp')):  #Save Screen
                         print("File Exists, please try again ...")
                         
                     else:
@@ -31,11 +38,11 @@ if __name__ == '__main__':
                     imgCount += 1
                 if event.key == 99: #C
                     rewards = []
-                    screen.fill((100,100,100))
+                    screen.fill((100,100,100)) #Clear Screen
                 if event.key == 97 :# A
-                    MODE = 1
+                    MODE = 1 # Draw Finish line
                 if(event.key == 100): # D 
-                    MODE = 0
+                    MODE = 0 # Draw Road
         click = pygame.mouse.get_pressed()
         mousex, mousey = pygame.mouse.get_pos()
         click = np.array(click)

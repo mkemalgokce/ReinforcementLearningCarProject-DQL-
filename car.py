@@ -1,3 +1,9 @@
+'''
+car.py
+Mustafa Kemal GOKCE
+30.04.2021
+It's a car class. You can create car with this class and also it returns sensor values.
+'''
 import pygame 
 from pygame import draw,display,key
 import math
