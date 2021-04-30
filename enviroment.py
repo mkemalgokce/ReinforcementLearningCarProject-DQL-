@@ -8,6 +8,7 @@ import numpy as np
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
+
 FPS = 60
 x = 0
 y = 0
