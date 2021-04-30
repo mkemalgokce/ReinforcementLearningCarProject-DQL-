@@ -1,4 +1,4 @@
-# Reinforcement Learning Car Project
+# Reinforcement Learning Self Driving Car Project
 
 # EN
 
