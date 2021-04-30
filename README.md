@@ -2,7 +2,8 @@
 
 ## EN
 
-### Car ![Center](https://github.com/mkemalgokce/CarProject/blob/master/Assets/mycar.bmp)
+### Car 
+![Center](https://github.com/mkemalgokce/CarProject/blob/master/Assets/mycar.bmp)
 
 
 
