@@ -33,7 +33,7 @@ class Game:
         self.reward = 0
         self.totalReward = 0.0
         self.done = False
-        self.level = 5
+        self.level = 0
         self.loadLevel(self.level)
 
         
