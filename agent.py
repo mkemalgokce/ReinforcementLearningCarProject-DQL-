@@ -30,8 +30,7 @@ class DQLAgent:
     def build_model(self):
         # neural network for deep q learning
         model = Sequential()
-        model.add(Dense(64, input_shape = (1,self.state_size), activation = "relu"))
-        model.add(Dense(64, activation = "relu"))
+        model.add(Dense(48, input_shape = (1,self.state_size), activation = "relu"))
         model.add(Dense(self.action_size,activation = "linear"))
         model.compile(loss = "mse", optimizer = Adam(lr = self.learning_rate))
         return model
@@ -45,7 +44,6 @@ class DQLAgent:
         state = state.reshape(1,1,5)
         if np.random.rand() <= self.epsilon:
             return random.randrange(self.action_size)
-        
         act_values = self.model.predict(state)
         return np.argmax(act_values[0][0])
     

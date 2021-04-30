@@ -12,8 +12,6 @@ FPS = 60
 x = 0
 y = 0
 
-
-
 class Game:
     def __init__(self):
         pygame.init()
@@ -26,24 +24,23 @@ class Game:
         self.reward = 0
         self.totalReward = 0.0
         self.done = False
-        self.loadLevel(1)
+        self.level = 0
+        self.loadLevel(self.level)
 
         
     def loadLevel(self, level):
         if(os.path.isfile('Assets/road'+str(level)+'.bmp')):
             self.map = pygame.image.load(r'Assets/road'+str(level)+'.bmp')
         else:
-            
             print('Resim bulunamadi. Default map aciliyor...')
             self.map = pygame.image.load(r'Assets/road'+str(0)+'.bmp')
     def initialDisplay(self):
-        pygame.event.pump()
         self.vals = [0,0,0,0,0]
         self.reward = 0
         self.totalReward = 0.0
         self.done = False
         self.car.resetCar()
-
+        self.loadLevel(self.level)
         state = self.drawCar()
         self.loadRoad()
         return state
@@ -60,35 +57,29 @@ class Game:
             x=0
             y=0
             self.done = True
-            self.reward -= 150
-            self.totalReward += self.reward
-            print("Total Reward :",self.totalReward)
-            
-
-            
-        if(self.isCollide(rewardVals) and (abs(x- self.car.x)>40 or abs(y- self.car.y)>40)):
+        if(self.isCollide(rewardVals)):
             x = self.car.x
             y = self.car.y
-            self.reward += 100
-            print('Skor artti.')
+            self.level+=1
+            self.initialDisplay()
 
         #Front sensor
-        pygame.draw.line(self.screen,(255,255,0),(self.car.x,self.car.y),(self.car.sensorCoordinates[0]))
+        pygame.draw.line(self.screen,(0,255,255),(self.car.x,self.car.y),(self.car.sensorCoordinates[0]),2)
         #CrossRight sensor
-        pygame.draw.line(self.screen,(255,255,0),(self.car.x,self.car.y),(self.car.sensorCoordinates[1]))
+        pygame.draw.line(self.screen,(0,255,255),(self.car.x,self.car.y),(self.car.sensorCoordinates[1]),2)
         #Cross Left sensor
-        pygame.draw.line(self.screen,(255,255,0),(self.car.x,self.car.y),(self.car.sensorCoordinates[2]))
+        pygame.draw.line(self.screen,(0,255,255),(self.car.x,self.car.y),(self.car.sensorCoordinates[2]),2)
         #Right
-        pygame.draw.line(self.screen,(255,255,0),(self.car.x,self.car.y),(self.car.sensorCoordinates[3]))
+        pygame.draw.line(self.screen,(0,255,255),(self.car.x,self.car.y),(self.car.sensorCoordinates[3]),2)
         #Left sensor
-        pygame.draw.line(self.screen,(255,255,0),(self.car.x,self.car.y),(self.car.sensorCoordinates[4]))
+        pygame.draw.line(self.screen,(0,255,255),(self.car.x,self.car.y),(self.car.sensorCoordinates[4]),2)
 
         self.vals = vals
         self.screen.blit(rot,new_rect)
         return self.vals
 
     def isCollide(self,vals):
-        if min(vals)<0.15 :
+        if min(vals)<0.2 :
             return True
         else :
             return False
@@ -97,11 +88,9 @@ class Game:
 
     def play(self,action):
         pygame.event.pump()
-
         self.loadRoad()
         self.car.moveCar(action)
         vals = self.drawCar()
-        pygame.display.flip()
         return vals
     
     def run(self):
@@ -112,34 +101,51 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-            keys=pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
-                self.car.moveCar(0)
-            if keys[pygame.K_RIGHT]:
-                self.car.moveCar(1)
+                    return False
+            # action = 2
+            # keys=pygame.key.get_pressed()
+            # if keys[pygame.K_UP]:
+            #     action = 2
+            # if keys[pygame.K_RIGHT]:
+
+            #     action = 0
+            # if keys[pygame.K_LEFT]:
+            #     action = 1
+            # self.play(action)
+            self.reward += 1
             if(self.done == True):
+                self.reward -= 100
+                self.totalReward += self.reward
+                print("Total Reward :",self.totalReward)
                 running=False
             action = self.agent.act(state)
+            if(action == 0):
+                 print("RIGHT")
+            elif action ==1 :
+                print("LEFT")
+            self.play(action)
             next_state = self.play(int(action))
             self.agent.remember(state,action,self.reward,next_state,self.done)
             state = next_state
-
-            self.agent.replay(10)
+            self.agent.replay(9)
             self.agent.adaptiveEGreedy()
             pygame.display.flip() 
             
 if __name__ == "__main__":
     env = Game()
-    liste = []
     t = 0
-    while True:
+    running = True
+    while running:
         t += 1
-        print("Episode: ",t)
-        liste.append(env.totalReward)
-                
+        print("Train: ",t)      
         # initialize pygame and create window
-        pygame.display.set_caption("RL Game")
+        pygame.display.set_caption("RL Car Game")
         clock = pygame.time.Clock()
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_w]:
+            break
         
-        env.run()
+        if (env.run() == False):
+            running = False
+    pygame.quit()
 

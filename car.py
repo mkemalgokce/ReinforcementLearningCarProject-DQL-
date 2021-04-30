@@ -9,10 +9,10 @@ class Car():
     def __init__(self):
 
         self.size = 40
-        self.x = STARTPOINTX+5
-        self.y = STARTPOINTY+10
-        self.speed = 3
-        self.maxSpeed = 5
+        self.x = STARTPOINTX+17
+        self.y = STARTPOINTY+20
+        self.speed = 1
+        self.maxSpeed = 2
         self.angle = 270
         self.acc = 0.1
         #init car
@@ -23,8 +23,8 @@ class Car():
         self.sensorCoordinates = [[0,0],[0,0],[0,0],[0,0],[0,0]]
 
     def resetCar(self):
-        self.x = STARTPOINTX+5
-        self.y = STARTPOINTY+10
+        self.x = STARTPOINTX+17
+        self.y = STARTPOINTY+20
         self.angle = 270
     def moveCar(self,action):
         
@@ -33,10 +33,10 @@ class Car():
         self.x -= math.sin(math.radians(self.angle))*self.speed
         self.y -= math.cos(math.radians(self.angle))*self.speed
         self.rect = pygame.Rect(self.x-self.size/2,self.y-self.size/2,self.size,self.size)
-        if(action==0):
-            self.addAngle(-5)
-        elif(action==1):
-            self.addAngle(5)
+        if action == 0 :
+            self.addAngle(-3)
+        elif action==1:
+            self.addAngle(3)
 
     def addAngle(self,i):
         self.angle +=i
@@ -46,17 +46,17 @@ class Car():
 
     def updateSensors(self):
         #Front Sensor
-        dx = (60*math.sin(math.radians(self.angle)))
-        dy = (60*math.cos(math.radians(self.angle)))
+        dx = (55*math.sin(math.radians(self.angle)))
+        dy = (55*math.cos(math.radians(self.angle)))
         self.sensorCoordinates[0] =[self.x-dx,self.y-dy]
         #Right Sensor
-        dx2 = (60*math.sin(math.radians(-30 + self.angle )))
-        dy2 = (60*math.cos(math.radians(-30 + self.angle )))
+        dx2 = (55*math.sin(math.radians(-30 + self.angle )))
+        dy2 = (55*math.cos(math.radians(-30 + self.angle )))
 
         self.sensorCoordinates[1] =[self.x-dx2,self.y-dy2]
         #Left sensor
-        dx1 = (60*math.sin(math.radians(30 + self.angle)))
-        dy1 = (60*math.cos(math.radians(30 + self.angle)))
+        dx1 = (55*math.sin(math.radians(30 + self.angle)))
+        dy1 = (55*math.cos(math.radians(30 + self.angle)))
 
         self.sensorCoordinates[2] = [self.x-dx1,self.y-dy1]
 
@@ -128,15 +128,15 @@ class Car():
         if(switch == 0):
             #Draw Obstacle Rectangles
             #Sensor 0 -->Front
-            pygame.draw.rect(screen,(255,255,0),[obsCoord[0][0],obsCoord[0][1],9,9],)
+            pygame.draw.rect(screen,(255,255,0),[obsCoord[0][0],obsCoord[0][1],8,8])
             #Sensor 1 -->Cross Right
-            pygame.draw.rect(screen,(255,0,0),[obsCoord[1][0],obsCoord[1][1],9,9])
+            pygame.draw.rect(screen,(255,0,255),[obsCoord[1][0],obsCoord[1][1],8,8])
             #Sensor 2 -->Cross Left
-            pygame.draw.rect(screen,(0,0,255),[obsCoord[2][0],obsCoord[2][1],9,9])
+            pygame.draw.rect(screen,(0,0,255),[obsCoord[2][0],obsCoord[2][1],8,8])
             #Sensor 3 -->Right
-            pygame.draw.rect(screen,(255,0,0),[obsCoord[3][0],obsCoord[3][1],9,9])
+            pygame.draw.rect(screen,(255,0,0),[obsCoord[3][0],obsCoord[3][1],8,8])
             #Sensor 4 -->Left
-            pygame.draw.rect(screen,(0,0,255),[obsCoord[4][0],obsCoord[4][1],9,9])
+            pygame.draw.rect(screen,(20,100,0),[obsCoord[4][0],obsCoord[4][1],8,8])
 
         valFront = self.computeDistance([obsCoord[0][0],obsCoord[0][1]],[self.x,self.y])/self.computeDistance([self.x,self.y],self.sensorCoordinates[0])
         valcRight = self.computeDistance([obsCoord[1][0],obsCoord[1][1]],[self.x,self.y])/self.computeDistance([self.x,self.y],self.sensorCoordinates[1])
