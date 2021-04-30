@@ -9,6 +9,7 @@
 
 ## Sensors
 <img width="158" alt="image" src="https://user-images.githubusercontent.com/46056478/116737824-5ea93e00-a9fa-11eb-8e8d-4a190a43c75e.png">
+
 * Car has 5 sensors. Left, right, front, front right and front left.
 * Each sensor has distance data. The datas are float numbers between 0 and 1.
 * If data equals zero, it shows min distance between car and specific color code.
