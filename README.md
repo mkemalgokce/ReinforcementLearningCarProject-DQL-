@@ -1,7 +1,7 @@
 # Reinforcement Learning Car Project
 
 ## EN
-## Libraries:
+
 ### Car 
 ![Center](https://github.com/mkemalgokce/CarProject/blob/master/Assets/mycar.bmp/ "Car")
 - Car has 5 sensors and each sensor gets distance between car and specific color code. The neural network gets this distance values(5 values) and predicts car moves.
@@ -57,6 +57,10 @@
 
 <img width="526" alt="image" src="https://user-images.githubusercontent.com/46056478/116737692-315c9000-a9fa-11eb-97d0-aada0b72b36e.png">
 
-
+# Libraries:
+* Pygame
+* Keras
+* Numpy
+* Math
 
 
