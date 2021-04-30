@@ -118,17 +118,8 @@ class Game:
                 self.totalReward += self.reward
                 print("Total Reward :",self.totalReward)
                 running=False
-            action = self.agent.act(state)
-            if(action == 0):
-                 print("RIGHT")
-            elif action ==1 :
-                print("LEFT")
+            action = 4
             self.play(action)
-            next_state = self.play(int(action))
-            self.agent.remember(state,action,self.reward,next_state,self.done)
-            state = next_state
-            self.agent.replay(9)
-            self.agent.adaptiveEGreedy()
             pygame.display.flip() 
             
 if __name__ == "__main__":
